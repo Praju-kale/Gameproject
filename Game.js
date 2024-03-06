@@ -2,21 +2,30 @@
 import React, { useState } from 'react';
 
 function Game() {
-  const [balloonSize, setBalloonSize] = useState(0);
+  const [balloonSize, setBalloonSize] = useState(20);
+  const [message, setMessage] = useState('');
+  const [popped, setPopped] = useState(false);
 
   const pumpBalloon = () => {
+    if (popped) return;
     if (balloonSize < 100) {
       setBalloonSize(balloonSize + 10);
     } else {
-      // Balloon pops
-      alert('Oops! The balloon popped!');
-      setBalloonSize(0);
+      setMessage('Balloon popped!');
+      setPopped(true);
     }
   };
 
+  const resetGame = () => {
+    setBalloonSize(20);
+    setMessage('');
+    setPopped(false);
+  };
+
   return (
-    <div className="w-full h-screen flex justify-center items-center">
-      <div className="relative">
-        <div className="bg-red-500 w-20 h-40 rounded-full absolute bottom-0" style={{ height: `${100 + balloonSize}px` }}></div>
-        <button onClick={pumpBalloon} className="bg-blue-500 text-white px-4 py-2 rounded absolute bottom-0 left-1/2 transform -translate-x-1/2">Pump Balloon</button>
-      </
+    <div className="flex flex-col items-center">
+      <h2 className="text-2xl mb-4">Balloon Popping Game</h2>
+      <div className="mb-4">
+        <div
+          className="w-20 h-40 bg-red-500 rounded-full
+
